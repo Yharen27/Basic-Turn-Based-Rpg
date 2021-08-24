@@ -5,6 +5,7 @@ namespace Text_Based_Rpg
     {
         static void Main()
         {
+            Console.Title = "Text Based Rpg";
             Console.WriteLine("You are tasked by the king to vanquished a ferocious dragon. -- Press Enter to continue dialog --");
             Console.ReadKey();
             Console.WriteLine("You ventured deep into the dragon's lair.");
