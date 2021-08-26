@@ -5,14 +5,15 @@ namespace Text_Based_Rpg
     {
         static void Main()
         {
-            Console.Title = "Text Based Rpg";
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Title = "Text Based Rpg";   
             Console.WriteLine("You are tasked by the king to vanquished a ferocious dragon. -- Press Enter to continue dialog --");
-            Console.ReadKey();
+            pressEnter();
             Console.WriteLine("You ventured deep into the dragon's lair.");
-            Console.ReadKey();
+            pressEnter();
             Console.WriteLine("Suddenly the dragon wakes from its deep slumber and finds you.");
-            Console.ReadKey();
-            gameLoop();   
+            pressEnter();
+            gameLoop();  
         }
         static void gameLoop() // Loops through until player or dragon's hp is less than or equal to 0
         {
@@ -32,7 +33,6 @@ namespace Text_Based_Rpg
         static void gameSequence()
         {
             Console.WriteLine("What do you do?");
-            Console.ReadKey();
             Console.WriteLine("1.Attack\n2.Heal\n3.Defend\n4.Nothing\n5.Quit\nType the word or number");
             string playerChoice = Convert.ToString(Console.ReadLine()); // Gets input from player
             if (playerChoice == "Attack" || playerChoice == "1")
@@ -41,11 +41,11 @@ namespace Text_Based_Rpg
             }
             else if (playerChoice == "Heal" || playerChoice == "2")
             {
-                defendChoice();
+                healChoice();
             }
             else if (playerChoice == "Defend" || playerChoice == "3")
             {
-                healChoice();
+                defendChoice();
             }
             else if (playerChoice == "Nothing" || playerChoice == "4")
             {
@@ -62,7 +62,7 @@ namespace Text_Based_Rpg
             Console.WriteLine("You attacked and dealt "+Stats.playerDmg+"dmg!");
             Stats.dragonHp -= Stats.playerDmg;
             Console.WriteLine($"Dragon has {Stats.dragonHp} hp left");
-            Console.ReadKey();
+            pressEnter();
             dragonAttack();
             gameLoop();
         }
@@ -71,20 +71,20 @@ namespace Text_Based_Rpg
             Console.WriteLine("You healed yourself and got "+Stats.playerHeal+"hp.");
             Stats.playerHp += Stats.playerHeal;
             Console.WriteLine($"Player has {Stats.playerHp} hp left");
-            Console.ReadKey();
+            pressEnter();
             dragonAttack();
             gameLoop();
         }
         static void defendChoice()
         {
             Console.WriteLine("You blocked the dragon's attack");
-            Console.ReadKey();
+            pressEnter();
             gameLoop();
         }
         static void nothingChoice()
         {
             Console.WriteLine("You did nothing to the dragon's attack.");
-            Console.ReadKey();
+            pressEnter();
             dragonAttack();
             gameLoop();
         }
@@ -93,20 +93,33 @@ namespace Text_Based_Rpg
             Console.WriteLine("The dragon attacked and dealt "+Stats.dragonDmg+"dmg!");
             Stats.playerHp -= Stats.dragonDmg;
             Console.WriteLine($"Player has {Stats.playerHp} hp left");
-            Console.ReadKey();
             gameLoop();
         }
         static void playerVictory()
         {
             Console.WriteLine("You've won and vanquished the dragon");
-            Console.ReadKey();
+            resetStats();
+            pressEnter();
             Main();
         }
         static void playerDefeat()
         {
             Console.WriteLine("You died");
-            Console.ReadKey();
+            resetStats();
+            pressEnter();
             Main();
+        }
+        static void pressEnter()
+        {
+            Console.ReadKey();
+        }
+        static void resetStats()
+        {
+            Stats.playerHp = 100;
+            Stats.playerDmg = Stats.numberGen.Next(20,40);
+            Stats.playerHeal = Stats.numberGen.Next(30,50);
+            Stats.dragonHp = 200;
+            Stats.dragonDmg = Stats.numberGen.Next(30,50);
         }
         static void quitGame()
         {
